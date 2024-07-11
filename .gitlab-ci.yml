@@ -1,0 +1,23 @@
+stages:
+  - package
+
+variables:
+  PACKAGE_REGISTRY_IMAGE: "${CI_REGISTRY_IMAGE}:${CI_COMMIT_TAG}"
+  PACKAGE_REGISTRY_IMAGE_LATEST: "${CI_REGISTRY_IMAGE}:latest"
+  PACKAGE_REGISTRY_CACHE: "${CI_REGISTRY_IMAGE}/cache"
+
+package:kaniko:
+  stage: package
+  image:
+    name: gcr.io/kaniko-project/executor:debug
+    entrypoint: [""]
+  rules:
+    - if: $CI_COMMIT_TAG
+  script:
+    - |
+      /kaniko/executor \
+        --context . \
+        --destination "${PACKAGE_REGISTRY_IMAGE}" \
+        --destination "${PACKAGE_REGISTRY_IMAGE_LATEST}" \
+        --cache=true \
+        --cache-repo="${PACKAGE_REGISTRY_CACHE}"
