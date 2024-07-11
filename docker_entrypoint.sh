@@ -16,5 +16,5 @@ mkdir -p $output_dir
 protoc \
     --proto_path $input_dir \
     --go_out $output_dir \
-    --go_micro_out $output_dir \
+    --micro_out $output_dir \
     $(find $input_dir -iname "*.proto")

@@ -3,7 +3,7 @@ FROM golang:latest AS builder
 
 # Install go packages
 RUN go install google.golang.org/protobuf/cmd/protoc-gen-go@latest && \
-    go install github.com/go-micro/generator/cmd/protoc-gen-micro@latest
+    go install github.com/micro/go-micro/cmd/protoc-gen-micro@latest
 
 # Stage 2: Final stage
 FROM alpine:latest
