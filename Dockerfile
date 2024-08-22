@@ -1,9 +1,11 @@
 # Stage 1: Build stage
 FROM golang:latest AS builder
 
+ENV GOPROXY=direct
+
 # Install go packages
 RUN go install google.golang.org/protobuf/cmd/protoc-gen-go@latest && \
-    go install github.com/asim/go-micro/cmd/protoc-gen-micro/v4@latest
+    go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
 
 # Stage 2: Final stage
 FROM alpine:latest
@@ -13,7 +15,7 @@ RUN apk add --no-cache protobuf
 
 # Copy go binaries from the builder stage
 COPY --from=builder /go/bin/protoc-gen-go /usr/local/bin/protoc-gen-go
-COPY --from=builder /go/bin/protoc-gen-micro /usr/local/bin/protoc-gen-micro
+COPY --from=builder /go/bin/protoc-gen-go-grpc /usr/local/bin/protoc-gen-go-grpc
 
 # Set the working directory
 WORKDIR /proto

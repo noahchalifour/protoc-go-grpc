@@ -1,6 +1,6 @@
-# Docker Protoc Generator for go-micro
+# Docker Protoc Generator for Go GRPC
 
-This is a docker image for [go-micro/generator](https://github.com/go-micro/generator)
+This is a docker image for generating GRPC code in Golang
 
 ### Repository Structure
 
@@ -26,5 +26,5 @@ To generate the go files, run the following command:
 docker run -it --rm \
     -v $(pwd)/proto:/proto \
     -v $(pwd)/build:/build \
-    protoc-go-micro:latest /proto /build
+    protoc-go-grpc:latest /proto /build
 ```
